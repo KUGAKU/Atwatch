@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/newcolorPrimary</item>
         <item name="colorPrimaryDark">@color/newcolorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">monospace</item>
     </style>
 
 </resources>
