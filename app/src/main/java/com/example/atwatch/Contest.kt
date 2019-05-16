@@ -1,6 +1,8 @@
 package com.example.atwatch
 
-open class Contest {
+import io.realm.RealmObject
+
+open class Contest :RealmObject(){
     var id: Long = 0
     var title: String = ""
 }

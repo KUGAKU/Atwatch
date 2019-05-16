@@ -1,9 +1,10 @@
 package com.example.atwatch
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import io.realm.Realm
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
@@ -24,6 +25,10 @@ class Main2Activity : AppCompatActivity() {
                 val contest = db.createObject<Contest>(nextId)
                 contest.title = contesttitle.text.toString()
             }
+            Snackbar.make(view, "追加しました", Snackbar.LENGTH_SHORT)
+                .setAction("戻る") {finish()}
+                .setActionTextColor(Color.BLUE)
+                .show()
         }
 
 

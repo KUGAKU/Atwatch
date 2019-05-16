@@ -26,7 +26,7 @@
             android:id="@+id/contesttitle" android:layout_marginEnd="8dp" android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp" android:layout_marginTop="8dp"
             app:layout_constraintHorizontal_bias="0.884" app:layout_constraintVertical_bias="0.087"
-            android:textAlignment="center" android:layout_width="239dp" android:textColor="@color/colorPrimaryDark"/>
+            android:textAlignment="viewStart" android:layout_width="239dp" android:textColor="@color/colorPrimaryDark"/>
     <Button
             android:text="@string/savabutton"
             android:layout_width="wrap_content"
