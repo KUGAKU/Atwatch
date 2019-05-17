@@ -3,4 +3,5 @@
     <string name="contesttitle">Contest title:</string>
     <string name="empty">empty</string>
     <string name="savabutton">SAVE</string>
+    <string name="detail">DETAIL</string>
 </resources>

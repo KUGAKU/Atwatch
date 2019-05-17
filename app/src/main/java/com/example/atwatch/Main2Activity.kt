@@ -1,5 +1,6 @@
 package com.example.atwatch
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -31,7 +32,10 @@ class Main2Activity : AppCompatActivity() {
                 .show()
         }
 
-
+        detail_button.setOnClickListener { view: View ->
+            val intent =  Intent(this,Main3Activity::class.java)
+            startActivity(intent)
+        }
 
     }
 
