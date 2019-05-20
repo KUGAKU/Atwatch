@@ -24,18 +24,21 @@ class Main2Activity : AppCompatActivity() {
                 val maxId = db.where<Contest>().max("id")
                 val nextId = (maxId?.toLong() ?: 0L) + 1
                 val contest = db.createObject<Contest>(nextId)
-                contest.title = contesttitle.text.toString()
+                contest.title = contest_title.text.toString()
             }
             Snackbar.make(view, "追加しました", Snackbar.LENGTH_SHORT)
                 .setAction("戻る") {finish()}
                 .setActionTextColor(Color.BLUE)
                 .show()
-        }
 
-        detail_button.setOnClickListener { view: View ->
             val intent =  Intent(this,Main3Activity::class.java)
             startActivity(intent)
         }
+
+        //detail_button.setOnClickListener { view: View ->
+        //    val intent =  Intent(this,Main3Activity::class.java)
+        //    startActivity(intent)
+        //}
 
     }
 
