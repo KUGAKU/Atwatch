@@ -24,7 +24,7 @@ class Main2Activity : AppCompatActivity() {
                 val maxId = db.where<Contest>().max("id")
                 val nextId = (maxId?.toLong() ?: 0L) + 1
                 val contest = db.createObject<Contest>(nextId)
-                contest.title = contest_title.text.toString()
+                contest.title = contest_title_input.text.toString()
             }
             Snackbar.make(view, "追加しました", Snackbar.LENGTH_SHORT)
                 .setAction("戻る") {finish()}
