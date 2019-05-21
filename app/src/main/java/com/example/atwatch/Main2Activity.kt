@@ -30,6 +30,7 @@ class Main2Activity : AppCompatActivity() {
                 val question_nextId = (question_maxId?.toLong() ?:0L) + 1
                 val question = db.createObject<Question>(question_nextId)
                 question.question = task.getSelectedItem() as String;
+                question.contest_id = nextId
 
             }
             Snackbar.make(view, "追加しました", Snackbar.LENGTH_SHORT)
