@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<app:LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  android:orientation="horizontal"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content" android:layout_marginBottom="8dp"
+                  app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                  android:layout_marginEnd="20dp" app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginStart="20dp" android:id="@+id/linearLayout">
+    <Button
+            android:text="Start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/countUpStart_button" android:layout_weight="1"/>
+    <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_weight="1"/>
+    <Button
+            android:text="@android:string/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/cancel_button" android:layout_weight="1"/>
+</app:LinearLayout>
