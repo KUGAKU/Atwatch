@@ -19,6 +19,7 @@ class Main2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
         realm = Realm.getDefaultInstance()
+        val intent =  Intent(this,Main3Activity::class.java)
 
         save_button.setOnClickListener { view: View ->
             realm.executeTransaction { db: Realm ->
@@ -31,6 +32,7 @@ class Main2Activity : AppCompatActivity() {
                 val question = db.createObject<Question>(question_nextId)
                 question.question = task.getSelectedItem() as String;
                 question.contest_id = nextId
+                intent.putExtra("contestId", db.where<Contest>().max("id"))
 
             }
             Snackbar.make(view, "追加しました", Snackbar.LENGTH_SHORT)
@@ -38,7 +40,6 @@ class Main2Activity : AppCompatActivity() {
                 .setActionTextColor(Color.BLUE)
                 .show()
 
-            val intent =  Intent(this,Main3Activity::class.java)
             startActivity(intent)
         }
 

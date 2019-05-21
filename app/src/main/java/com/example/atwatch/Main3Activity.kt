@@ -26,7 +26,8 @@ class Main3Activity : AppCompatActivity() {
 
         countUpStart_button.setOnClickListener {
             handler.post(runnable)
-
+            //val nowid = intent.getLongExtra("contestId", 0)
+            contestTitle.text = intent.getLongExtra("contestId", 0).toString()
         }
 
         back_button.setOnClickListener { view ->
