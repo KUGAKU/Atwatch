@@ -4,15 +4,30 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import io.realm.Realm
+import io.realm.kotlin.createObject
+import io.realm.kotlin.where
+import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.activity_main3.*
 
 class Main3Activity : AppCompatActivity() {
+    private lateinit var realm: Realm
     val handler = Handler()
     var timeValue = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main3)
+        realm = Realm.getDefaultInstance()
+
+
+        val contest_id = intent.getLongExtra("contestId", 0)
+        val question = realm.where<Question>().equalTo("contest_id",contest_id).findFirst()
+        val contest = realm.where<Contest>().equalTo("id",contest_id).findFirst()
+        contestTitle.text = contest?.title
+        textView2.text = question?.question
+
+
 
         val runnable = object : Runnable {
             override fun run() {
@@ -27,7 +42,6 @@ class Main3Activity : AppCompatActivity() {
         countUpStart_button.setOnClickListener {
             handler.post(runnable)
             //val nowid = intent.getLongExtra("contestId", 0)
-            contestTitle.text = intent.getLongExtra("contestId", 0).toString()
         }
 
         back_button.setOnClickListener { view ->
@@ -52,5 +66,10 @@ class Main3Activity : AppCompatActivity() {
             val s = time % 60
             "%1$02d:%2$02d:%3$02d".format(h, m, s) // 整形
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        realm.close()
     }
 }
