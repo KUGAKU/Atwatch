@@ -8,4 +8,5 @@ open class Question : RealmObject(){
     var question_id: Long = 0
     var question: String = ""
     var level: String = ""
+    var contest_id: Long = 0
 }
