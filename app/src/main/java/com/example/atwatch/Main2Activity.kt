@@ -44,6 +44,7 @@ class Main2Activity : AppCompatActivity() {
                             question.question = task.getSelectedItem() as String;
                             question.contest_id = nextId
                             intent.putExtra("contestId", db.where<Contest>().max("id"))
+                            intent.putExtra("questionId",db.where<Question>().max("question_id"))
                         }
                         Snackbar.make(view, "追加しました", Snackbar.LENGTH_SHORT)
                             .setAction("戻る") { finish() }
@@ -59,6 +60,7 @@ class Main2Activity : AppCompatActivity() {
                             question.question = task.getSelectedItem() as String;
                             question.contest_id = contestId!!
                             intent.putExtra("contestId", db.where<Contest>().max("id"))
+                            intent.putExtra("questionId",db.where<Question>().max("question_id"))
                         }
                         Snackbar.make(view, "別のレベルの問題を選択！", Snackbar.LENGTH_SHORT)
                             .setAction("戻る") { finish() }

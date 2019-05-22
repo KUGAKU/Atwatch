@@ -22,7 +22,8 @@ class Main3Activity : AppCompatActivity() {
 
 
         val contest_id = intent.getLongExtra("contestId", 0)
-        val question = realm.where<Question>().equalTo("contest_id",contest_id).findFirst()
+        val question_id = intent.getLongExtra("questionId",0)
+        val question = realm.where<Question>().equalTo("question_id",question_id).findFirst()
         val contest = realm.where<Contest>().equalTo("id",contest_id).findFirst()
         contestTitle.text = contest?.title
         textView2.text = question?.question //工夫の必要あり(全ての問題でAが表示されている// )
