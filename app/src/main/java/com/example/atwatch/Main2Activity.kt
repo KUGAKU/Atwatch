@@ -19,35 +19,55 @@ class Main2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
         realm = Realm.getDefaultInstance()
-        val intent =  Intent(this,Main3Activity::class.java)
 
-        save_button.setOnClickListener { view: View ->
-            realm.executeTransaction { db: Realm ->
-                val maxId = db.where<Contest>().max("id")
-                val nextId = (maxId?.toLong() ?: 0L) + 1
-                val contest = db.createObject<Contest>(nextId)
-                contest.title = contest_title_input.text.toString()
-                val question_maxId = db.where<Question>().max("question_id")
-                val question_nextId = (question_maxId?.toLong() ?:0L) + 1
-                val question = db.createObject<Question>(question_nextId)
-                question.question = task.getSelectedItem() as String;
-                question.contest_id = nextId
-                intent.putExtra("contestId", db.where<Contest>().max("id"))
 
-            }
-            Snackbar.make(view, "追加しました", Snackbar.LENGTH_SHORT)
-                .setAction("戻る") {finish()}
-                .setActionTextColor(Color.BLUE)
-                .show()
+        val contestId = intent?.getLongExtra("contest_id", -1L)
 
-            startActivity(intent)
+        if (contestId != -1L) {//(-1Lではない＝デフォルト値でない＝同一コンテストの異なるレベルの問題の時に発火)
+            val contest = realm.where<Contest>()
+                .equalTo("id", contestId).findFirst()
+            contest_title_input.setText(contest?.title)
         }
+        val intent = Intent(this, Main3Activity::class.java)
+            save_button.setOnClickListener { view: View ->
+                when (contestId) {
+                    -1L -> { //新規登録
 
-        //detail_button.setOnClickListener { view: View ->
-        //    val intent =  Intent(this,Main3Activity::class.java)
-        //    startActivity(intent)
-        //}
-
+                        realm.executeTransaction { db: Realm ->
+                            val maxId = db.where<Contest>().max("id")
+                            val nextId = (maxId?.toLong() ?: 0L) + 1
+                            val contest = db.createObject<Contest>(nextId)
+                            contest.title = contest_title_input.text.toString()
+                            val question_maxId = db.where<Question>().max("question_id")
+                            val question_nextId = (question_maxId?.toLong() ?: 0L) + 1
+                            val question = db.createObject<Question>(question_nextId)
+                            question.question = task.getSelectedItem() as String;
+                            question.contest_id = nextId
+                            intent.putExtra("contestId", db.where<Contest>().max("id"))
+                        }
+                        Snackbar.make(view, "追加しました", Snackbar.LENGTH_SHORT)
+                            .setAction("戻る") { finish() }
+                            .setActionTextColor(Color.BLUE)
+                            .show()
+                        startActivity(intent)
+                    }
+                    else -> { //同一コンテストの異なるレベルの問題の時に発火
+                        realm.executeTransaction{ db: Realm ->
+                            val question_maxId = db.where<Question>().max("question_id")
+                            val question_nextId = (question_maxId?.toLong() ?: 0L) + 1
+                            val question = db.createObject<Question>(question_nextId)
+                            question.question = task.getSelectedItem() as String;
+                            question.contest_id = contestId!!
+                            intent.putExtra("contestId", db.where<Contest>().max("id"))
+                        }
+                        Snackbar.make(view, "別のレベルの問題を選択！", Snackbar.LENGTH_SHORT)
+                            .setAction("戻る") { finish() }
+                            .setActionTextColor(Color.BLUE)
+                            .show()
+                        startActivity(intent)
+                        }
+                }
+                }
     }
 
     override fun onDestroy() {
