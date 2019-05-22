@@ -50,7 +50,6 @@ class Main3Activity : AppCompatActivity() {
                 val time_maxId = db.where<Time>().max("time_id")
                 val time_nextId = (time_maxId?.toLong() ?: 0L) + 1
                 val time = db.createObject<Time>(time_nextId)
-                time.start = timeText.text.toString()
                 time.question_id = question_id
             }
 
@@ -69,7 +68,7 @@ class Main3Activity : AppCompatActivity() {
 
             realm.executeTransaction{ db: Realm ->
                 val time = db.where<Time>().equalTo("question_id",question_id).findFirst()
-                time?.end = timeText.text.toString()
+                time?.time = timeText.text.toString()
             }
         }
     }
