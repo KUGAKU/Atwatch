@@ -25,7 +25,7 @@ class Main3Activity : AppCompatActivity() {
         val question = realm.where<Question>().equalTo("contest_id",contest_id).findFirst()
         val contest = realm.where<Contest>().equalTo("id",contest_id).findFirst()
         contestTitle.text = contest?.title
-        textView2.text = question?.question
+        textView2.text = question?.question //工夫の必要あり(全ての問題でAが表示されている// )
 
 
 
@@ -45,8 +45,9 @@ class Main3Activity : AppCompatActivity() {
         }
 
         back_button.setOnClickListener { view ->
-            val back_intent = Intent(this,Main2Activity::class.java)
-            startActivity(back_intent)
+            val intent = Intent(this,Main2Activity::class.java)
+            intent.putExtra("contest_id",contest?.id)
+            startActivity(intent)
         }
 
         //cancel_button.setOnClickListener {
