@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import io.realm.Realm
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
@@ -20,7 +21,7 @@ class Main3Activity : AppCompatActivity() {
         setContentView(R.layout.activity_main3)
         realm = Realm.getDefaultInstance()
 
-
+        stop_button.visibility = View.INVISIBLE
         val contest_id = intent.getLongExtra("contestId", 0)
         val question_id = intent.getLongExtra("questionId",0)
         val question = realm.where<Question>().equalTo("question_id",question_id).findFirst()
@@ -43,6 +44,16 @@ class Main3Activity : AppCompatActivity() {
         countUpStart_button.setOnClickListener {
             handler.post(runnable)
             //val nowid = intent.getLongExtra("contestId", 0)
+            stop_button.visibility = View.VISIBLE
+            countUpStart_button.visibility = View.INVISIBLE
+            realm.executeTransaction{ db: Realm ->
+                val time_maxId = db.where<Time>().max("time_id")
+                val time_nextId = (time_maxId?.toLong() ?: 0L) + 1
+                val time = db.createObject<Time>(time_nextId)
+                time.start = timeText.text.toString()
+                time.question_id = question_id
+            }
+
         }
 
         back_button.setOnClickListener { view ->
@@ -51,9 +62,16 @@ class Main3Activity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //cancel_button.setOnClickListener {
-        //
-        //}
+        stop_button.setOnClickListener {
+            handler.removeCallbacks(runnable)
+            countUpStart_button.visibility = View.VISIBLE
+            stop_button.visibility = View.INVISIBLE
+
+            realm.executeTransaction{ db: Realm ->
+                val time = db.where<Time>().equalTo("question_id",question_id).findFirst()
+                time?.end = timeText.text.toString()
+            }
+        }
     }
 
 
