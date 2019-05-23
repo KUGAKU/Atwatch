@@ -27,7 +27,7 @@ class Main3Activity : AppCompatActivity() {
         val question = realm.where<Question>().equalTo("question_id",question_id).findFirst()
         val contest = realm.where<Contest>().equalTo("id",contest_id).findFirst()
         contestTitle.text = contest?.title
-        textView2.text = question?.question //工夫の必要あり(全ての問題でAが表示されている// )
+        textView2.text = question?.question
 
 
 
@@ -58,6 +58,9 @@ class Main3Activity : AppCompatActivity() {
         back_button.setOnClickListener { view ->
             val intent = Intent(this,Main2Activity::class.java)
             intent.putExtra("contest_id",contest?.id)
+            realm.executeTransaction{ db: Realm ->
+                intent.putExtra("time", db.where<Time>().equalTo("question_id",question_id).findFirst()?.time)
+            }
             startActivity(intent)
         }
 

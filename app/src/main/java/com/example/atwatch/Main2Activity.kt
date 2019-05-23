@@ -22,11 +22,12 @@ class Main2Activity : AppCompatActivity() {
 
 
         val contestId = intent?.getLongExtra("contest_id", -1L)
-
+        val all_time = intent?.getStringExtra("time")
         if (contestId != -1L) {//(-1Lではない＝デフォルト値でない＝同一コンテストの異なるレベルの問題の時に発火)
             val contest = realm.where<Contest>()
                 .equalTo("id", contestId).findFirst()
             contest_title_input.setText(contest?.title)
+            progress_text.setText(all_time.toString())
         }
         val intent = Intent(this, Main3Activity::class.java)
             save_button.setOnClickListener { view: View ->
