@@ -42,42 +42,42 @@ class Main2Activity : AppCompatActivity() {
 
                     for (i:Int in 0..(sum_time?.length!!-1)){//秒表記化処理
                         if ( i == 0){
-                            sum_time_Int = sum_time_Int + sum_time[i].toInt() * 36000
+                            sum_time_Int = sum_time_Int + Integer.parseInt(sum_time[i].toString()) * 36000
                         }
                         if ( i == 1){
-                            sum_time_Int = sum_time_Int + sum_time[i].toInt() * 3600
+                            sum_time_Int = sum_time_Int + Integer.parseInt(sum_time[i].toString()) * 3600
                         }
                         if ( i == 3){
-                            sum_time_Int = sum_time_Int + sum_time[i].toInt() * 360
+                            sum_time_Int = sum_time_Int + Integer.parseInt(sum_time[i].toString()) * 360
                         }
                         if ( i == 4){
-                            sum_time_Int = sum_time_Int + sum_time[i].toInt() * 60
+                            sum_time_Int = sum_time_Int + Integer.parseInt(sum_time[i].toString()) * 60
                         }
                         if ( i == 6){
-                            sum_time_Int = sum_time_Int + sum_time[i].toInt() * 10
+                            sum_time_Int = sum_time_Int + Integer.parseInt(sum_time[i].toString()) * 10
                         }
                         if ( i == 7){
-                            sum_time_Int = sum_time_Int + sum_time[i].toInt()
+                            sum_time_Int = sum_time_Int + Integer.parseInt(sum_time[i].toString())
                         }
                     }
                     for (i:Int in 0..(current_time?.length!!-1)){//秒表記化処理
                         if ( i == 0){
-                            current_time_Int = current_time_Int + current_time[i].toInt() * 36000
+                            current_time_Int = current_time_Int + Integer.parseInt(current_time[i].toString()) * 36000
                         }
                         if ( i == 1){
-                            current_time_Int = current_time_Int + current_time[i].toInt() * 3600
+                            current_time_Int = current_time_Int + Integer.parseInt(current_time[i].toString()) * 3600
                         }
                         if ( i == 3){
-                            current_time_Int = current_time_Int + current_time[i].toInt() * 360
+                            current_time_Int = current_time_Int + Integer.parseInt(current_time[i].toString()) * 360
                         }
                         if ( i == 4){
-                            current_time_Int = current_time_Int + current_time[i].toInt() * 60
+                            current_time_Int = current_time_Int + Integer.parseInt(current_time[i].toString()) * 60
                         }
                         if ( i == 6){
-                            current_time_Int = current_time_Int + current_time[i].toInt() * 10
+                            current_time_Int = current_time_Int + Integer.parseInt(current_time[i].toString()) * 10
                         }
                         if ( i == 7){
-                            current_time_Int = current_time_Int + current_time[i].toInt()
+                            current_time_Int = current_time_Int + Integer.parseInt(current_time[i].toString())
                         }
                     }
                     var result: Int = sum_time_Int + current_time_Int
