@@ -81,9 +81,27 @@ class Main2Activity : AppCompatActivity() {
                         }
                     }
                     var result: Int = sum_time_Int + current_time_Int
+                        if (result <= 60){
+                            contest?.progress = "00:00:"+result.toString()
+                            progress_text.setText("00:00:"+result.toString())
+                        }
+                        if (60 < result && result <= 3600){
+                            contest?.progress = "00:"+(result/60)+":"+(result%60)
+                            progress_text.setText("00:"+(result/60).toString()+":"+(result%60).toString())
+                        }
+                        if (3600 < result){
+                            if ( result/60 < 120 ){
+                               contest?.progress = "0"+((result/60)/60).toString()+":"+((result/60)%60).toString()+":"+(result%60).toString()
+                               progress_text.setText("0"+((result/60)/60).toString()+":"+((result/60)%60).toString()+":"+(result%60).toString())
+                            }
+                            if ( 120 <= result/60 ){
+                                contest?.progress = ((result/60)/60).toString()+":"+((result/60)%60).toString()+":"+(result%60).toString()
+                                progress_text.setText(((result/60)/60).toString()+":"+((result/60)%60).toString()+":"+(result%60).toString())
+                            }
+                        }
 
-                    contest?.progress = result.toString()
-                    progress_text.setText(result.toString())
+
+
                 }
 
             }
