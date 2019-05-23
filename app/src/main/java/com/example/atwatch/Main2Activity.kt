@@ -37,18 +37,51 @@ class Main2Activity : AppCompatActivity() {
                 else{ //もう既に合計時間が登録してあるなら＝既存の解答合計時間に今回の解答時間をプラスした値を挿入してあげる.
                     var sum_time: String? = contest?.progress
                     var current_time: String? = current_time
+                    var sum_time_Int: Int = 0
+                    var current_time_Int: Int = 0
 
-                    for (i:Int in 0..(sum_time?.length!!-1)){//文字列検査と型変換処理
-                        if ( sum_time[i].equals(":")){
-                            sum_time[i] = '0'
+                    for (i:Int in 0..(sum_time?.length!!-1)){//秒表記化処理
+                        if ( i == 0){
+                            sum_time_Int = sum_time_Int + sum_time[i].toInt() * 36000
+                        }
+                        if ( i == 1){
+                            sum_time_Int = sum_time_Int + sum_time[i].toInt() * 3600
+                        }
+                        if ( i == 3){
+                            sum_time_Int = sum_time_Int + sum_time[i].toInt() * 360
+                        }
+                        if ( i == 4){
+                            sum_time_Int = sum_time_Int + sum_time[i].toInt() * 60
+                        }
+                        if ( i == 6){
+                            sum_time_Int = sum_time_Int + sum_time[i].toInt() * 10
+                        }
+                        if ( i == 7){
+                            sum_time_Int = sum_time_Int + sum_time[i].toInt()
                         }
                     }
-                    for (i:Int in 0..(current_time?.length!!-1)){//文字列検査と型変換処理
-                        if ( current_time[i].equals(":")){
-                            current_time[i] = '0'
+                    for (i:Int in 0..(current_time?.length!!-1)){//秒表記化処理
+                        if ( i == 0){
+                            current_time_Int = current_time_Int + current_time[i].toInt() * 36000
+                        }
+                        if ( i == 1){
+                            current_time_Int = current_time_Int + current_time[i].toInt() * 3600
+                        }
+                        if ( i == 3){
+                            current_time_Int = current_time_Int + current_time[i].toInt() * 360
+                        }
+                        if ( i == 4){
+                            current_time_Int = current_time_Int + current_time[i].toInt() * 60
+                        }
+                        if ( i == 6){
+                            current_time_Int = current_time_Int + current_time[i].toInt() * 10
+                        }
+                        if ( i == 7){
+                            current_time_Int = current_time_Int + current_time[i].toInt()
                         }
                     }
-                    var result: Int = sum_time.toInt() + current_time.toInt()
+                    var result: Int = sum_time_Int + current_time_Int
+
                     contest?.progress = result.toString()
                     progress_text.setText(result.toString())
                 }
