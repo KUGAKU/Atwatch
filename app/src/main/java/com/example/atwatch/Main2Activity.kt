@@ -22,12 +22,40 @@ class Main2Activity : AppCompatActivity() {
 
 
         val contestId = intent?.getLongExtra("contest_id", -1L)
-        val all_time = intent?.getStringExtra("time")
+        val current_time = intent?.getStringExtra("time")
         if (contestId != -1L) {//(-1Lではない＝デフォルト値でない＝同一コンテストの異なるレベルの問題の時に発火)
             val contest = realm.where<Contest>()
                 .equalTo("id", contestId).findFirst()
             contest_title_input.setText(contest?.title)
-            progress_text.setText(all_time.toString())
+
+            realm.executeTransaction{ db: Realm ->
+                val contest = db.where<Contest>().equalTo("id",contestId).findFirst()
+                if (contest?.progress?.isEmpty()!!){//もし合計時間が未登録なら＝A問題の解答終了時間を挿入してあげる処理.//正常動作確認済み
+                    contest?.progress = current_time.toString()
+                    progress_text.setText(current_time.toString())
+                }
+                else{ //もう既に合計時間が登録してあるなら＝既存の解答合計時間に今回の解答時間をプラスした値を挿入してあげる.
+                    var sum_time: String? = contest?.progress
+                    var current_time: String? = current_time
+
+                    for (i:Int in 0..(sum_time?.length!!-1)){//文字列検査と型変換処理
+                        if ( sum_time[i].equals(":")){
+                            sum_time[i] = '0'
+                        }
+                    }
+                    for (i:Int in 0..(current_time?.length!!-1)){//文字列検査と型変換処理
+                        if ( current_time[i].equals(":")){
+                            current_time[i] = '0'
+                        }
+                    }
+                    var result: Int = sum_time.toInt() + current_time.toInt()
+                    contest?.progress = result.toString()
+                    progress_text.setText(result.toString())
+                }
+
+            }
+
+            //progress_text.setText()
         }
         val intent = Intent(this, Main3Activity::class.java)
             save_button.setOnClickListener { view: View ->
@@ -77,4 +105,8 @@ class Main2Activity : AppCompatActivity() {
         super.onDestroy()
         realm.close()
     }
+}
+
+private operator fun String.set(i: Int, value: Char) {
+
 }
