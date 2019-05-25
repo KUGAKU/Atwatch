@@ -7,6 +7,7 @@
     <string name="backbutton">BACK</string>
     <string name="progresstime">Progress</string>
     <string name="progress_time">Progress:</string>
+    <string name="recordbutton">RECORD</string>
     <string-array name="list">
         <item>A</item>
         <item>B</item>
