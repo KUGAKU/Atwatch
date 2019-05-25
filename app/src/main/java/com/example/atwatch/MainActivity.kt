@@ -15,5 +15,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this,Main2Activity::class.java)
             startActivity(intent)
         }
+
+        record_button.setOnClickListener { view ->
+            val intent = Intent(this, Main4Activity::class.java)
+            startActivity(intent)
+        }
     }
 }
